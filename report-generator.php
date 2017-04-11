@@ -37,6 +37,7 @@ $graph->setAccessToken($token);
 $content .= getGroupData($graph);
 $content .= getEmployeeData($graph);
 $content .= getOneDriveData($graph);
+$content .= getSharepointData($graph);
 
 // Send the report as an email
 createEmail($graph, $adminEmail, $tenant, $content);
@@ -244,6 +245,42 @@ function getOneDriveData($graph)
         $data["content"][] = array($driveName, $used . "MB");
     }
 
+    return createTable($data);
+}
+
+/**
+* Get data about the tenant's SharePoint site
+* 
+* @param Graph $graph The client to use to fetch Graph data
+*
+* @return string $data An HTML string of data about the tenant's SharePoint site
+*/
+function getSharepointData($graph)
+{
+    echo "Generating Sharepoint table";
+
+    $graph->setApiVersion("beta");
+
+    $data = array(
+        "title" => "Planner",
+        "headers" => array("Plan"),
+        "content" => array()
+    );
+
+    $site = $graph->createRequest("GET", "/sharepoint/site")
+        ->setReturnType(Model\Site::class)
+        ->execute();
+
+    $lists = $graph->createRequest("GET", "/sharepoint/sites/" . $site->getId() . "/lists")
+        ->setReturnType(Model\SharepointList::class)
+        ->execute();
+
+    foreach ($lists as $list) {
+        $items = $graph->createRequest("GET", "/sharepoint/sites/" . $site->getId() . "/lists/" . $list->getId() . "/items")
+            ->setReturnType(Model\ListItem::class)
+            ->execute();
+        $data["content"][] = array($list->getName(), count($items));
+    }
     return createTable($data);
 }
 
