@@ -1,6 +1,8 @@
 # report-generator
 Generate reports through CLI or CRON using PHP and MS Graph.
 
+![Generated Email Report](screenshot.PNG)
+
 This application uses the client credential flow to authorize the application to anonymously access information about your tenant without having a user present. This means we can grab all sorts of useful information about the state of our tenant and compile reports, push actions such as creating new Planner boards, and send emails.
 
 In this sample, we use the PHP client library to authorize our application, then grab data from Groups, Users, OneDrive, and SharePoint, and compile a summary email to the admin.
