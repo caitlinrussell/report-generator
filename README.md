@@ -38,4 +38,6 @@ The first time you want to use your application, you will need to grant the appl
 in your web browser, signing in as a tenant admin, and accepting the scopes we previously requested. This will not need to be done again.
 
 ## Running the script
+Install Composer dependency with ```composer install```
+
 Call ```php report-generator.php``` from the CLI
