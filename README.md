@@ -22,8 +22,9 @@ To use this script, you will need to have:
 6. The Application Permissions section defines which privileges your application as a whole has, whereas delegated permissions define which privileges an individual user logged into your app has. Since there won't be a user present, we need to ask for application permissions. At a minimum, you'll want to select
     1. Directory.Read.All
     2. Group.Read.All
-    3. Mail.Send
-    4. User.Read.All
+    3. Mail.Read
+    4. Mail.Send
+    5. User.Read.All
 7. Click Save
 8. Copy the Application ID into the report-generator.php file
 
